@@ -9,13 +9,13 @@ INITIAL_SIZE=16
 
 SIZE=$INITIAL_SIZE
 
-NAMES=('mandelbrot_seq')
+NAMES=('mandelbrot_omp')
 
 make
 mkdir results
 
 for NAME in ${NAMES[@]}; do
-    mkdir results/$NAME/seq_sem_io
+    mkdir results/$NAME/omp
 
     for ((i=1; i<=$ITERATIONS; i++)); do
             perf stat -r $MEASUREMENTS ./$NAME -2.5 1.5 -2.0 2.0 $SIZE >> full.log 2>&1
@@ -27,6 +27,6 @@ for NAME in ${NAMES[@]}; do
 
     SIZE=$INITIAL_SIZE
 
-    mv *.log results/$NAME/seq_sem_io
+    mv *.log results/$NAME/omp
     rm output.ppm
 done
